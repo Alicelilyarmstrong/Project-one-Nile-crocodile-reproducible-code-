@@ -3,6 +3,9 @@ title: "Plotting specimen occurrence data"
 author: "Alice Armstrong"
 date: "2023-03-06"
 output: html_document
+
+This script allows you to visualize georeferenced Nile crocodile specimens from GBIF and the NHM (London)
+
 ---
 ```{r}
 library(gridExtra)
