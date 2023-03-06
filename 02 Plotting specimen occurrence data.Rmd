@@ -1,0 +1,191 @@
+---
+title: "Plotting specimen occurrence data"
+author: "Alice Armstrong"
+date: "2023-03-06"
+output: html_document
+---
+```{r}
+library(gridExtra)
+library(sf)
+library(dplyr)
+library(patchwork)
+library(tidyverse)
+
+```
+
+
+#Load raw data from GBIF and NHM#
+```{r}
+NHM<-read.csv('croc_neat.csv')
+GBIF<-read.csv('GBIF_final.csv')
+```
+
+```{r}
+GBIF1<-GBIF %>% select('Date','Long', 'Lat','Extent','Cer' )
+NHM1<-NHM %>% select('Date','Long', 'Lat','Extent','Cer', 'Keep' )
+```
+
+#Drop NAs#
+```{r}
+GBIF2<-drop_na(GBIF1)
+NHM2<-drop_na(NHM1)
+```
+
+#Remove rows listed as ‘N’ in NHM data (these were records with unclear information/ other issues)#
+```{r}
+NHM3<-subset(NHM2, Keep == "Y")
+```
+
+#Rename NHM and GBIF data, and limt NHM column names to match GBIF#
+```{r}
+fullNHM<-NHM3%>%select ('Date','Long', 'Lat','Extent', 'Cer')
+fullGBIF<-GBIF2
+```
+
+#filter for extents same as or less than 5000km#
+```{r}
+fullNHM2<-fullNHM%>% filter(Extent<=5000)
+fullGBIF2<-fullGBIF%>% filter(Extent<=5000)
+```
+
+#Filter for certainty scores the same as or greater than 50#
+```{r}
+fullNHM2<-fullNHM%>% filter(Cer>=50)
+fullGBIF2<-fullGBIF%>% filter(Cer>=50)
+```
+
+#Filter years for NHM (1850:1900,1901:1951,1952:2002)#
+```{r}
+fiftyyrs1 <- fullNHM2 %>% filter(Date %in% (1850:1900))
+fiftyyrs2 <- fullNHM2 %>% filter(Date %in% (1901:1951))
+fiftyyrs3 <- fullNHM2 %>% filter(Date %in% (1952:2002))
+```
+
+#Filter years for GBIF (1850:1900,1901:1951,1952:2002)#
+```{r}
+yrs1 <- fullGBIF2 %>% filter(Date %in% (1850:1900))
+yrs2 <- fullGBIF2 %>% filter(Date %in% (1901:1951))
+yrs3 <- fullGBIF2 %>% filter(Date %in% (1952:2002))
+```
+
+#Helper functions for plotting#
+```{r}
+remove_y <-
+  theme(axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank())
+remove_x <-
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+#convert the NHM coordinates into spatial points then sf format#
+```{r}
+
+fiftyyrs11 <-
+  fiftyyrs1 %>%
+  st_as_sf(coords = c("Long", "Lat"), crs = 4326)
+
+fiftyyrs22 <-
+  fiftyyrs2 %>%
+  st_as_sf(coords = c("Long", "Lat"), crs = 4326)
+
+fiftyyrs33 <-fiftyyrs3 %>%
+  st_as_sf(coords = c("Long", "Lat"), crs = 4326)
+
+```
+
+#convert the GBIF coordinates into spatial points then sf format#
+```{r}
+yrs11 <-
+  yrs1 %>%
+  st_as_sf(coords = c("Long", "Lat"), crs = 4326)
+
+yrs22 <-
+  yrs2 %>%
+  st_as_sf(coords = c("Long", "Lat"), crs = 4326)
+
+yrs33 <-
+  yrs3 %>%
+  st_as_sf(coords = c("Long", "Lat"), crs = 4326)
+```
+
+#Make a base map of the land#
+```{r}
+baseMap <-
+  rnaturalearth::ne_countries(returnclass = 'sf')
+```
+
+# Plot base map#
+```{r}
+ggplot(baseMap) +
+  geom_sf(fill = "lightsteelblue1", lwd = 0.4) +
+  theme_void()
+```
+
+# Choose coordinates to limit to Africa#
+```{r}
+africa_bbox <- c(-14.414063, -37.996163,
+                 53.613281, 27.994401)
+xlim_af <- c(africa_bbox[1], africa_bbox[3])
+ylim_af <- c(africa_bbox[2], africa_bbox[4])
+```
+
+#Plot NHM and GBIF data from 1850-1900#
+```{r}
+map1<-ggplot(baseMap) +
+  geom_sf(fill = "white", lwd = 0.4) +
+  # Add species
+  geom_sf(data = fiftyyrs11, colour = "blue", size = 2, alpha=0.5) +
+  # Add equator line
+  geom_hline(aes(yintercept = 0), colour = "black") +
+  geom_sf(data = yrs11, colour = "red", size = 2, alpha=0.5) +
+  coord_sf(xlim = xlim_af, ylim = ylim_af, expand = TRUE) +
+  theme_minimal() +
+  remove_x + # gets rid of x axis as we don't need it
+  remove_y # gets rid of y axis
+
+```
+
+# Plot NHM and GBIF data from 1901-1951#
+```{r}
+map2<-ggplot(baseMap) +
+  geom_sf(fill = "white", lwd = 0.4) +
+  # Add species
+  geom_sf(data = fiftyyrs22, colour = "blue", size = 2, alpha=0.5) +
+  # Add equator line
+  geom_hline(aes(yintercept = 0), colour = "black") +
+  geom_sf(data = yrs22, colour = "red", size = 2, alpha=0.5) +
+  coord_sf(xlim = xlim_af, ylim = ylim_af, expand = TRUE) +
+  theme_minimal() +
+  remove_x + # gets rid of x axis as we don't need it
+  remove_y 
+```
+
+#Plot NHM and GBIF data from (1952:2002#
+```{r}
+map3<-ggplot(baseMap) +
+  geom_sf(fill = "white", lwd = 0.4) +
+  # Add species
+  geom_sf(data = fiftyyrs33, colour = "blue", size = 2, alpha=0.5) +
+  # Add equator line
+  geom_hline(aes(yintercept = 0), colour = "black") +
+  geom_sf(data = yrs33, colour = "red", size = 2, alpha=0.5) +
+  coord_sf(xlim = xlim_af, ylim = ylim_af, expand = TRUE) +
+  theme_minimal() +
+  remove_x + # gets rid of x axis as we don't need it
+  remove_y # gets rid of y axis
+
+```
+
+
+#plot maps side by side#
+```{r}
+specimindata<-map1 + map2 + map3
+```
+
+#label maps for figure (i,ii)#
+```{r}
+specimindata + plot_annotation (tag_levels= 'i')
+```
