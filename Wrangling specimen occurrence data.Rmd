@@ -1,0 +1,80 @@
+---
+title: "Wrangling specimen occurrence data"
+author: "Alice Armstrong"
+date: "2023-03-06"
+output: html_document
+---
+
+This script takes georeferenced data for Nile crcodiles and wrangles these for later analysis.
+
+
+Load packages 
+```{r}
+library(gridExtra)
+library(sf)
+library(patchwork)
+library(tidyverse)
+```
+
+
+Load raw data from GBIF and NHM 
+```{r}
+NHM<-read.csv('croc_neat.csv')
+GBIF<-read.csv('GBIF_final.csv')
+
+```
+
+
+Select columns of interest 
+```{r}
+GBIF1<-GBIF %>% select('Date','Long', 'Lat','Extent','Cer' )
+NHM1<-NHM %>% select('Date','Long', 'Lat','Extent','Cer', 'Keep' )
+```
+
+Drop NAs
+```{r}
+GBIF2<-drop_na(GBIF1)
+NHM2<-drop_na(NHM1)
+```
+
+Remove rows listed as ‘N’ in NHM data (these were records with unclear information/ other issues)
+```{r}
+NHM3<-subset(NHM2, Keep == "Y")
+```
+
+Rename NHM and GBIF data, and limt NHM column names to match GBIF
+```{r}
+fullNHM<-NHM3%>%select ('Date','Long', 'Lat','Extent', 'Cer')
+fullGBIF<-GBIF2
+```
+
+Merge datasets
+```{r}
+fulldata<-rbind(fullNHM,fullGBIF)
+```
+
+
+Make dates appear in descending order 
+```{r}
+fulldata<-fulldata%>% arrange(desc(Date))
+```
+
+Filter for extents same as or less than 5000km
+```{r}
+fulldata<-fulldata%>% filter(Extent<=5000)
+```
+
+Filter for certainty scores the same as or greater than 50
+```{r}
+fulldata<-fulldata%>% filter(Cer>=50)
+```
+
+Omit data from the last 10 years (so we only have historical data)
+```{r}
+fulldata<-fulldata%>% filter(Date<=1999)
+```
+
+Write file
+```{r}
+write.csv(GBIF_NHM, "specimen_occurrence_data",row.names = T)
+```
