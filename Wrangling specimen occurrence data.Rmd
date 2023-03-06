@@ -8,9 +8,8 @@ output: html_document
 This script takes georeferenced data for Nile crcodiles and wrangles these for later analysis.
 
 
-
-```{r}
 #Load packages# 
+```{r}
 library(gridExtra)
 library(sf)
 library(patchwork)
@@ -18,9 +17,8 @@ library(tidyverse)
 ```
 
 
-
-```{r}
 #Load raw data from GBIF and NHM#
+```{r}
 NHM<-read.csv('croc_neat.csv')
 GBIF<-read.csv('GBIF_final.csv')
 
