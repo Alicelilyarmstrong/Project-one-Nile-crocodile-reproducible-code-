@@ -5,12 +5,7 @@ date: "2023-03-06"
 output: html_document
 ---
 
----
-title: "Wrangling specimen occurrence data"
-author: "Alice Armstrong"
-date: "2023-03-06"
-output: html_document
----
+
 
 This script takes georeferenced data for Nile crcodiles and wrangles these for later analysis.
 
