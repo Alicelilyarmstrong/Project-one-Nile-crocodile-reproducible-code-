@@ -8,8 +8,9 @@ output: html_document
 This script takes georeferenced data for Nile crcodiles and wrangles these for later analysis.
 
 
-#Load packages# 
+
 ```{r}
+#Load packages# 
 library(gridExtra)
 library(sf)
 library(patchwork)
