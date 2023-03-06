@@ -18,8 +18,9 @@ library(tidyverse)
 ```
 
 
-#Load raw data from GBIF and NHM#
+
 ```{r}
+#Load raw data from GBIF and NHM#
 NHM<-read.csv('croc_neat.csv')
 GBIF<-read.csv('GBIF_final.csv')
 
