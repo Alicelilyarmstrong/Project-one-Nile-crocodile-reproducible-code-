@@ -1,0 +1,232 @@
+---
+title: "Maxent"
+author: "Alice Armstrong"
+date: "2023-03-06"
+output: html_document
+---
+
+This script runs a Maxent species distribution model on the historical Nile crocodile specimen data from GBIF and the NHM.
+
+#Load packages#
+```{r}
+library(raster)
+library(tidyverse)
+library(dismo)
+library(terra)
+library(geodata)
+library(sf)
+library(sp)
+library(rgdal)
+library(sfheaders)
+library(rnaturalearth)
+library(geodata)
+library(reshape2)
+library(rJava)
+library(maps)
+library(mapdata)
+library(maptools)
+library(jsonlite)
+library(usdm)
+library(rgeos)
+library(spThin)
+library(ids)
+```
+
+#set seed to correct for randomness#
+```{r}
+set.seed(1)
+```
+
+##Load the Wordclim data#
+```{r}
+geodata::worldclim_global 
+modelEnv<- worldclim_global(var='bio', res=10, path='data')
+```
+
+#stack spatrasters#
+```{r}
+modelEnv<-raster::stack(modelEnv) 
+```
+
+# Relabel the variables#
+```{r}
+bioclim_names <- paste0('bio', 1:19)
+names(modelEnv) <- bioclim_names
+```
+#Check VIF to deal with multicollinearity #
+```{r}
+usdm::vifstep(modelEnv,th=3)
+```
+
+# remove predictors with VIF values greater than 3#
+```{r}
+modelEnv=dropLayer(modelEnv, 
+  c("bio1", "bio4", "bio5", "bio6", "bio7", "bio8", "bio9", "bio10",
+    "bio11","bio12", "bio13","bio16","bio17"))
+```
+
+#load and edit locality data#
+```{r}
+data<-read.csv('full_specimin_localility')
+data<-data%>%dplyr::select('Long','Lat','Extent','Cer')
+raw.data<-data%>%dplyr::select('Long','Lat')
+```
+
+#correct for potential spatial auto correlation#
+
+
+#check grid limits#
+```{r}
+max(raw.data$Long) #55.46
+min(raw.data$Long) # -14.76935
+max(raw.data$Lat) #29.25896
+min(raw.data$Lat) # -34.00129
+
+```
+
+#set grid limits#
+```{r}
+x <- seq(from = -20, to =60, by = 0.16666)
+y <- seq(from = -40, to = 35, by = 0.16666)
+xy <- expand.grid(x, y)
+colnames(xy)<-c("Long","Lat")
+
+bounds <- data.frame(xl = (xy$Long - 0.083333333),
+                     xu = (xy$Long + 0.083333333), 
+                     yl = (xy$Lat - 0.083333333), 
+                     yu = (xy$Lat + 0.083333333),
+                     xy)
+bounds$id<-random_id(216931, 4)
+```
+
+#set for loop that takes one occurrence per grid cell#
+```{r}
+for (i in 1:216931){
+  grid <- bounds[i,] 
+  for (j in 1:233){ 
+    x <- raw.data[j,1] 
+    y<- raw.data[j,2]
+    if (grid$xl <= x & grid$xu >= x &  grid$yl <= y & grid$yu >= y) {
+      raw.data[j,4:6]<-grid[,5:7]
+    } 
+  } 
+}
+
+```
+
+#take each unique record from the resulting dataset#
+```{r}
+unique.species<-unique(raw.data[,4:6]) 
+data<-unique.species
+data<-data%>%dplyr::select('Long.1', 'Lat.1')
+```
+
+
+#make model extent#
+```{r}
+model.extent<-extent(min(data$Long)-10,max(data$Long)+10,
+                     min(data$Lat)-10,max(data$Lat)+10)
+```
+
+#crop data to local range#
+```{r}
+modelEnv<-crop(modelEnv,model.extent)
+
+```
+
+#withold 20% of sample for testing#
+```{r}
+fold <- kfold(data, k=5)
+occtest <- data[fold == 1, ]
+occtrain <- data[fold != 1, ]
+
+```
+
+#fit maxent#
+```{r}
+maxent_model<-maxent(modelEnv,occtrain)
+```
+
+#plot maxent#
+```{r}
+plot(maxent_model)
+```
+
+#predict on entire dataset#
+```{r}
+maxent_entire <- predict(maxent_model, modelEnv)
+
+```
+
+#plot#
+```{r}
+plot(maxent_entire)
+
+```
+
+#response curves#
+```{r}
+par(mar = c(1, 1, 1, 1))
+response(maxent_model)
+```
+
+#load background data (make sure raster is stacked)#
+```{r}
+modelEnv<-raster::stack(modelEnv) 
+bg <- randomPoints(modelEnv,10000)
+```
+
+#evaluate/ test data#
+```{r}
+model_evaluation <- dismo::evaluate(maxent_model, p=occtest, a=bg, x=modelEnv)
+```
+
+#load ICUN polygons#
+```{r}
+iucn <- 
+  st_read(dsn = "~/R/CROCODILES_ALLIGATORS") %>%
+  st_as_sf() %>%
+  st_transform(4326)
+```
+
+#Select only Nile Crocs#
+```{r}
+iucn2<-subset(iucn, binomial == "Crocodylus niloticus")
+```
+
+#make sure sf objects are the same projection#
+```{r}
+iucn2<- st_transform(iucn2, 4326)
+```
+
+#plot with ICUN polygons#
+```{r}
+par(mar=c(0,0,0,0))
+plot(maxent_entire)
+plot(st_geometry(iucn2), add=TRUE, lwd=2)
+```
+
+#calculate the number of points in raster with highest habitat suitability (1.0-0.6)#
+```{r}
+historical <- length(which(values(maxent_entire) 
+                           <= 1.0 & values(maxent_entire) >= 0.6))
+```
+
+#crop raster to iucn points#
+```{r}
+inter<-intersect(maxent_entire,iucn2)
+plot(inter)
+```
+
+#calculate the number of iucn points in the cropped raster with highest habitat suitability#
+```{r}
+present_day<-sum(values(inter)==1.0,na.rm=TRUE)
+present_day <- length(which(values(inter) <= 1.0 & values(inter) >= 0.6))
+```
+
+#calculate percentage overlap of suitable habitat#
+```{r}
+overlap<-present_day/historical
+overlap<-overlap*100
+```
+
