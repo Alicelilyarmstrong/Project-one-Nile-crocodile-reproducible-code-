@@ -1,0 +1,128 @@
+---
+title: "Areas of overlap between historic and current ranges"
+author: "Alice Armstrong"
+date: "2023-03-09"
+output: html_document
+---
+#Load packages#
+```{r}
+devtools::install_github("JCur96/sfe", force = TRUE)
+library(sfe)
+library(rgeos)
+library(rgdal)
+library(Hmisc)
+library(tidyverse)
+library(here)
+library(patchwork)
+library(knitr)
+library(rnaturalearth)
+library(ggplot2)
+library(devtools)
+```
+
+
+#Croc georeferenced data with extents#
+```{r}
+nhm <- st_read("crocs-points.csv")
+nhm <- nhm %>%
+  st_set_crs(4326)
+
+```
+
+#Read in the IUCN range maps#
+```{r}
+iucn <- 
+  st_read(dsn = "~/R/CROCODILES_ALLIGATORS") %>%
+  st_as_sf() %>%
+  st_transform(4326)
+
+```
+
+#Select only Nile crocs#
+```{r}
+iucn2<-subset(iucn, binomial == "Crocodylus niloticus")
+```
+
+#load basemap#
+```{r}
+baseMap <-
+  rnaturalearth::ne_countries(returnclass = 'sf')
+```
+
+#Plot 
+
+#Bounding box#
+```{r}
+africa_bbox <- c(-14.414063, -37.996163, 
+                 53.613281, 27.994401)
+xlim_af <- c(africa_bbox[1], africa_bbox[3])
+ylim_af <- c(africa_bbox[2], africa_bbox[4])
+```
+
+#plot#
+```{r}
+ggplot(baseMap) +
+  geom_sf() +
+  geom_sf(fill = "#7fcdbb", colour = "#7fcdbb",
+          data = nhm, show.legend = FALSE) +
+  geom_sf(fill = "#2c7fb8", colour = "#2c7fb8",
+          data = iucn2, show.legend = FALSE) +
+  coord_sf(xlim = xlim_af, ylim = ylim_af, expand = TRUE)
+
+```
+
+#Create a convex hull instead for the IUCN map#
+```{r}
+newIUCN <- st_convex_hull(iucn2)
+```
+
+#Extract points that fall within the convex hull#
+```{r}
+overlap <- st_intersection(nhm, newIUCN)
+```
+
+#plot#
+```{r}
+ggplot(baseMap) +
+  geom_sf() +
+  geom_sf(fill = "#7fcdbb", colour = "#7fcdbb",
+          data = nhm, show.legend = FALSE) +
+  geom_sf(alpha = 0.5, fill = "#2c7fb8", colour = "#2c7fb8",
+          data = newIUCN, show.legend = FALSE) +
+  geom_sf(fill = "red", colour = "red",
+          data = overlap, show.legend = FALSE) +
+  coord_sf(xlim = xlim_af, ylim = ylim_af, expand = TRUE)
+```
+
+#Extract just the ID column from nhm data#
+```{r}
+nhm_simple <- nhm %>%
+  dplyr::select(ID, Date, Extent_km, Cer) %>%
+  st_drop_geometry()
+```
+
+#The overlap dataframe only contains the points that are overlapping with IUCN#
+#So add a column of 1s for overlap score, then extract just the IDs and merge#
+```{r}
+overlap_simple <- overlap %>%
+  mutate(overlap = rep(1, n())) %>%
+  dplyr::select(ID, Date, Extent_km, Cer, overlap) %>%
+  st_drop_geometry()
+overlaps <- left_join(nhm_simple, overlap_simple)
+
+```
+
+#Add 0s for 0 overlap to replace NAs#
+```{r}
+overlaps$overlap[is.na(overlaps$overlap)] <- 0
+```
+
+#Look at the data#
+```{r}
+overlaps
+```
+
+#write file#
+```{r}
+write.csv(overlaps,"overlaps")
+```
