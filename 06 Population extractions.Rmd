@@ -4,6 +4,7 @@ author: "Alice Armstrong"
 date: "2023-03-09"
 output: html_document
 ---
+This script takes extracts various types of HPD data from the error polygons of the specimens.
 
 #Load packages#
 ```{r setup, include=FALSE}
