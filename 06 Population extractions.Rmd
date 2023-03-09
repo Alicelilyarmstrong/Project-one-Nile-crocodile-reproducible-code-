@@ -1,0 +1,78 @@
+---
+title: "Population extractions"
+author: "Alice Armstrong"
+date: "2023-03-09"
+output: html_document
+---
+
+#Load packages#
+```{r setup, include=FALSE}
+library(sf)
+library(sfe)
+library(tidyverse) 
+library(raster) 
+library(rgdal)
+library(here)
+```
+
+#Load custom function#
+```{r}
+source(here::here("04 Functions anthropocene data.R"))
+```
+
+#Read in the data and set coordinate ref system. 
+#For some reason st_read makes everything a factor 
+#so convert Extent etc back to numeric first and relevel redlist
+```{r}
+specs_errors <- 
+  st_read(here("crocs-extents.csv")) %>%  
+  st_set_crs(4326)
+```
+
+#Define root folder and then folders within this#
+```{r}
+root <- "Population_high"
+folders <- list.files(here(root))
+paths <- paste0(root, "/", folders)
+
+```
+
+#Extract list of files in all the folders with paths attached#
+```{r}
+files<- NULL
+for (i in 1:length(paths)){
+  files <- c(files, paste0(paths[i], "/", list.files(here(folders[i]))))
+}   
+
+```
+
+#Extract list of files in all the folders#
+```{r}
+filenames <- NULL
+for (i in 1:length(paths)){
+  filenames <- c(filenames, list.files(here(folders[i])))
+} 
+```
+
+#Remove .asc from filenames#
+```{r}
+filenames <- str_remove(filenames, ".asc")
+```
+
+#Read in all the data#
+```{r}
+for (i in 1:length(files)){
+  assign(filenames[i], raster(here(files[i]), 
+                              crs = "+proj=longlat +datum=WGS84"))}
+```
+
+#And extract the HPD...#
+```{r}
+overlaps_hpd <- extract_hpd(crocs_errors)
+                             
+```
+
+## Write to file#
+```{r}
+st_write(overlaps_hpd, here("data/overlaps_hpd.csv"))
+```
