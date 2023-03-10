@@ -1,0 +1,329 @@
+---
+title: "Logistic general linear model"
+author: "Alice Armstrong"
+date: "2023-03-10"
+output: html_document
+---
+
+This script performs a general linear model with binomial errors to measure the effects of human population size, density and land cover type on overlap between historic (museum specimen data) and present-day (IUCN data) C.niloticus distributions.
+
+#Load packages#
+```{r}
+library(tidyverse)
+library(car)
+library(ggplot2)
+library(patchwork)
+library(rsq)
+```
+#load data#
+```{r}
+landuse<-read.csv("overlaps_landuse.csv")
+hpd<-read.csv("overlaps_hpd.csv")
+overlaps<-read.csv("overlaps")
+```
+
+#merge columns#
+```{r}
+hpd_land<-merge(landuse,hpd)
+merged<-merge(overlaps,hpd_land)
+```
+
+#primary forest GLMs#
+```{r}
+primf1 <- glm(overlap ~ primf_1850,family = quasibinomial(link = "logit"),data = merged)
+primf2 <- glm(overlap ~ primf_1900,family = quasibinomial(link = "logit"),data = merged)
+primf3 <- glm(overlap ~ primf_1950,family = quasibinomial(link = "logit"),data = merged)
+primf4 <- glm(overlap ~ primf_2000,family = quasibinomial(link = "logit"),data = merged)
+```
+
+#Summarise results and look at pseudo-r squared values#
+```{r}
+summary(primf1)
+anova_res <- anova(primf1, test = 'F')
+r<-rsq(primf1)
+
+summary(primf2)
+anova_res <- anova(primf2, test = 'F')
+r<-rsq(primf2)
+
+summary(primf3)
+anova_res <- anova(primf3, test = 'F')
+r<-rsq(primf3)
+
+summary(primf4)
+anova_res <- anova(primf4, test = 'F')
+r<-rsq(primf4)
+
+```
+
+#plot primary forest plots for results section#
+
+#primary forest 1850#
+```{r}
+plot_primf_1850<-ggplot(merged, aes(x=primf_1850, y=overlap)) + geom_point() +
+  labs(y= "overlap", x = "primary forest ")+
+  scale_y_continuous(breaks = c(0, 1), labels = c("No", "Yes"))+
+  stat_smooth(method="glm", color="blue", se=FALSE,
+              method.args = list(family=binomial))
+```
+
+#primary forest 1900#
+```{r}
+plot_primf_1900<-ggplot(merged, aes(x=primf_1900, y=overlap)) + geom_point() +
+  labs(y= "overlap", x = "primary forest")+
+  scale_y_continuous(breaks = c(0, 1), labels = c("No", "Yes"))+
+  stat_smooth(method="glm", color="blue", se=FALSE,
+             method.args = list(family=binomial))
+```
+
+#primary forest 1950#
+```{r}
+plot_primf_1950<-ggplot(merged, aes(x=primf_1900, y=overlap)) + geom_point() +
+  labs(y= "overlap", x = " primary forest")+
+  scale_y_continuous(breaks = c(0, 1), labels = c("No", "Yes"))+
+  stat_smooth(method="glm", color="blue", se=FALSE,
+              method.args = list(family=binomial))
+```
+
+#primary-non forest GLMs#
+```{r}
+primn1<-glm(overlap ~ primn_1850,family = quasibinomial(link = "logit"),data = merged)
+primn2<-glm(overlap ~ primn_1900,family = quasibinomial(link = "logit"),data = merged)
+primn3<-glm(overlap ~ primn_1950,family = quasibinomial(link = "logit"),data = merged)
+primn4<-glm(overlap ~ primn_2000,family = quasibinomial(link = "logit"),data = merged)
+
+```
+
+#Summarise results and look at F stat and pseudo-r squared values#
+```{r}
+summary(primn1)
+anova_res <- anova(primn1, test = 'F')
+r<-rsq(primn1)
+
+summary(primn2)
+anova_res <- anova(primn2, test = 'F')
+r<-rsq(primn2)
+
+summary(primn3)
+anova_res <- anova(primn3, test = 'F')
+r<-rsq(primn3)
+
+summary(primn4)
+anova_res <- anova(primn4, test = 'F')
+r<-rsq(primn4)
+```
+
+#plot primary non forest plots for results section#
+
+#primary non forest 1850#
+```{r}
+plot_primn_1850<-ggplot(merged, aes(x=primn_1850, y=overlap)) + geom_point() +
+  labs(y= "overlap", x = "primary non-forest")+
+  scale_y_continuous(breaks = c(0, 1), labels = c("No", "Yes"))+
+  stat_smooth(method="glm", color="blue", se=FALSE,
+              method.args = list(family=binomial))
+```
+
+#primary non forest 1900#
+```{r}
+plot_primn_1900<-ggplot(merged, aes(x=primn_1900, y=overlap)) + geom_point() +
+  labs(y="overlap", x = "primary non-forest")+
+  scale_y_continuous(breaks = c(0, 1), labels = c("No", "Yes"))+
+  stat_smooth(method="glm", color="blue", se=FALSE,
+              method.args = list(family=binomial))
+```
+
+#primary non forest 1950#
+```{r}
+plot_primn_1950<-ggplot(merged, aes(x=primn_1950, y=overlap)) + geom_point() +
+  labs(y= "overlap", x = " primary non-forest")+
+  scale_y_continuous(breaks = c(0, 1), labels = c("No", "Yes"))+
+  stat_smooth(method="glm", color="blue", se=FALSE,
+              method.args = list(family=binomial))
+```
+
+#primary non forest 2000#
+```{r}
+plot_primn_2000<-ggplot(merged, aes(x=primn_2000, y=overlap)) + geom_point() +
+  labs(y= "% overlap", x = "primary non-forest")+
+  stat_smooth(method="glm", color="blue", se=FALSE,
+              method.args = list(family=binomial))
+```
+
+#urban land cover GLMs#
+```{r}
+urban1<-glm(overlap ~ urban_1850, family = quasibinomial(link = "logit"),data = merged)
+urban2<-glm(overlap ~ urban_1900, family = quasibinomial(link = "logit"),data = merged)
+urban3<-glm(overlap ~ urban_1950, family = quasibinomial(link = "logit"),data = merged)
+urban4<-glm(overlap ~ urban_2000, family = quasibinomial(link = "logit"),data = merged)
+```
+#Summarise results and look at F stat and pseudo-r squared values#
+```{r}
+summary(urban1)
+anova_res <- anova(urban1, test = 'F')
+r<-rsq(urban1)
+
+summary(urban2)
+anova_res <- anova(urban2, test = 'F')
+r<-rsq(urban2)
+
+summary(urban3)
+anova_res <- anova(urban3, test = 'F')
+r<-rsq(urban3)
+
+summary(urban4)
+anova_res <- anova(urban4, test = 'F')
+r<-rsq(urban4)
+```
+
+#plot urban for results section#
+
+#urban 1850#
+```{r}
+plot_urban_1850<-ggplot(merged, aes(x=urban_1850, y=overlap)) + geom_point() +
+  labs(y= "overlap", x = "urban")+
+  scale_y_continuous(breaks = c(0, 1), labels = c("No", "Yes"))+
+  stat_smooth(method="glm", color="blue", se=FALSE,
+              method.args = list(family=binomial))
+```
+
+#urban 1900# 
+```{r}
+plot_urban_1900<-ggplot(merged, aes(x=urban_1900, y=overlap)) + geom_point() +
+  labs(y= "overlap", x = "urban")+
+  scale_y_continuous(breaks = c(0, 1), labels = c("No", "Yes"))+
+  stat_smooth(method="glm", color="blue", se=FALSE,
+              method.args = list(family=binomial))
+```
+
+#urban 1950#
+```{r}
+plot_urban_1950<-ggplot(merged, aes(x=urban_1950, y=overlap)) + geom_point() +
+  labs(y= "overlap", x = "urban")+
+  scale_y_continuous(breaks = c(0, 1), labels = c("No", "Yes"))+
+  stat_smooth(method="glm", color="blue", se=FALSE,
+              method.args = list(family=binomial))
+```
+
+
+#make a multiplot of land cover types#
+```{r}
+primn_plots<-plot_primn_1850+plot_primn_1900+plot_primn_1950+
+  plot_primf_1850+plot_primf_1900+plot_primf_1950+
+  plot_urban_1850+plot_urban_1900+plot_urban_1950
+
+primn_plots + plot_annotation (tag_levels= 'i')
+```
+
+
+#-------------------population size and density GLMs----------------------------#
+
+
+#population count#
+```{r}
+popc1<-glm(overlap~popc_1850,family = quasibinomial(link = "logit"),data = merged)
+popc2<-glm(overlap~popc_1900,family = quasibinomial(link = "logit"),data = merged)
+popc3<-glm(overlap~popc_1950,family = quasibinomial(link = "logit"),data = merged)
+popc4<-glm(overlap~popc_2000,family = quasibinomial(link = "logit"),data = merged)
+```
+
+#Summarise results and look at F stat and pseudo-r squared values#
+```{r}
+summary(popc1)
+anova_res <- anova(popc1, test = 'F')
+r<-rsq(popc1)
+
+summary(popc2)
+anova_res <- anova(popc2, test = 'F')
+r<-rsq(popc2)
+
+summary(popc3)
+anova_res <- anova(popc3, test = 'F')
+r<-rsq(popc3)
+
+summary(popc4)
+anova_res <- anova(popc4, test = 'F')
+r<-rsq(popc4)
+```
+
+
+#population density#
+```{r}
+popd1<-glm(overlap~popd_1850, family = quasibinomial(link = "logit"),data = merged)
+popd2<-glm(overlap~popd_1900, family = quasibinomial(link = "logit"),data = merged)
+popd3<-glm(overlap~popd_1950, family = quasibinomial(link = "logit"),data = merged)
+popd4<-glm(overlap~popd_2000, family = quasibinomial(link = "logit"),data = merged)
+```
+#Summarise results and look at F stat and pseudo-r squared values#
+```{r}
+summary(popd1)
+anova_res <- anova(popd1, test = 'F')
+r<-rsq(popd1)
+
+summary(popd2)
+anova_res <- anova(popd2, test = 'F')
+r<-rsq(popd2)
+
+summary(popd3)
+anova_res <- anova(popd3, test = 'F')
+r<-rsq(popd3)
+
+summary(popd4)
+anova_res <- anova(popd4, test = 'F')
+r<-rsq(popd4)
+
+```
+
+#rural population count#
+```{r}
+rurc1<-glm(overlap~rurc_1850, family= quasibinomial(link = "logit"),data = merged)
+rurc2<-glm(overlap~rurc_1900, family= quasibinomial(link = "logit"),data = merged)
+rurc3<-glm(overlap~rurc_1950, family= quasibinomial(link = "logit"),data = merged)
+rurc4<-glm(overlap~rurc_2000, family= quasibinomial(link = "logit"),data = merged)
+```
+#Summarise results and look at F stat and pseudo-r squared values#
+```{r}
+summary(rurc1)
+anova_res <- anova(rurc1, test = 'F')
+r<-rsq(rurc1)
+
+summary(rurc2)
+anova_res <- anova(rurc2, test = 'F')
+r<-rsq(rurc2)
+
+summary(rurc3)
+anova_res <- anova(rurc3, test = 'F')
+r<-rsq(rurc3)
+
+summary(rurc4)
+anova_res <- anova(rurc4, test = 'F')
+r<-rsq(rurc4)
+```
+
+#urban population count#
+```{r}
+urbc1<-glm(overlap~urbc_1850,family = quasibinomial(link = "logit"),data = merged)
+urbc2<-glm(overlap~urbc_1900,family = quasibinomial(link = "logit"),data = merged)
+urbc3<-glm(overlap~urbc_1950,family = quasibinomial(link = "logit"),data = merged)
+urbc4<-glm(overlap~urbc_2000,family = quasibinomial(link = "logit"),data = merged)
+```
+
+#Summarise results and look at F stat and pseudo-r squared values#
+```{r}
+summary(urbc1)
+anova_res <- anova(urbc1, test = 'F')
+r<-rsq(urbc1)
+
+summary(urbc2)
+anova_res <- anova(urbc2, test = 'F')
+r<-rsq(urbc2)
+
+summary(urbc3)
+anova_res <- anova(urbc3, test = 'F')
+r<-rsq(urbc3)
+
+summary(urbc4)
+anova_res <- anova(urbc4, test = 'F')
+r<-rsq(urbc4)
+
+```
