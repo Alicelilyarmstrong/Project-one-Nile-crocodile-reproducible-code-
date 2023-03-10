@@ -3,7 +3,7 @@ This is all the code for my paper, ‘Exploring the impacts of anthropogenic cha
 
 # Raw data #
 
-All wrangled data for analysis and plots has been provided in this repository as csv. files 
+All wrangled data for analysis and plots has been provided in this repository as csv. files.
 
 
 **References for original sources of data:**
