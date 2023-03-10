@@ -3,7 +3,7 @@ This is all the code for my paper, ‘Exploring the impacts of anthropogenic cha
 
 # Raw data #
 
-All wrangled data for analysis and plots has been provided in this repository as csv. files.
+All wrangled data for analysis has been provided in this repository as csv. files.
 
 
 **References for original sources of data:**
@@ -26,7 +26,7 @@ Klein Goldewijk, K., A. Beusen, J.Doelman and E. Stehfest (2017), Anthropogenic 
 
 # Analyses #
 
-All the code used for analysis is given in the repository. Below is a brief description of each script.
+All the code used for plots and analysis is given in the repository. Below is a brief description of each script.
 
 
 **01 Wrangling specimen occurrence data.Rmd-** This script takes georeferenced data for Nile crcodiles and wrangles these for later analysis.
