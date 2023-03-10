@@ -3,7 +3,7 @@ This is all the code for my paper, ‘Exploring the impacts of anthropogenic cha
 
 # Analyses #
 
-References for original sources of the data:
+References for original sources of data:
 
 Specimen data-
 Global Biodiversity Information Facility. (2023). Occurrence Download. https://doi.org/10.15468/dl.2fn763 [Accessed 8th January 2023].
