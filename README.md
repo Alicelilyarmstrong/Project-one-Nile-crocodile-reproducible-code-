@@ -30,16 +30,16 @@ All the code used for analysis is given in the repository. Below is a brief desc
 
 **01 Wrangling specimen occurrence data.Rmd-** This script takes georeferenced data for Nile crcodiles and wrangles these for later analysis.
 
-02 Plotting specimen occurrence data.Rmd- This script allows you to visualize georeferenced Nile crocodile specimens from GBIF and the NHM (London).
+**02 Plotting specimen occurrence data.Rmd-** This script allows you to visualize georeferenced Nile crocodile specimens from GBIF and the NHM (London).
 
-03 Modelling historical Nile crocodile occurrence with Maxent.Rmd- This script runs a Maxent species distribution model on the historical Nile crocodile specimen data from GBIF and the NHM.
+**03 Modelling historical Nile crocodile occurrence with Maxent.Rmd**- This script runs a Maxent species distribution model on the historical Nile crocodile specimen data from GBIF and the NHM.
 
-04 Functions anthropocene data.R- functions to make scripts 05 and 06 work.
+**04 Functions anthropocene data.R-** functions to make scripts 05 and 06 work.
 
-05 Land use extractions.Rmd- This script takes extracts various types of land use data from the error polygons of the specimens.
+**05 Land use extractions.Rmd-** This script takes extracts various types of land use data from the error polygons of the specimens.
 
-06 Population extractions.Rmd- This script takes extracts various types of HPD data from the error polygons of the specimens.
+**06 Population extractions.Rmd-** This script takes extracts various types of HPD data from the error polygons of the specimens.
 
-07 Areas of overlap between historic and current ranges.Rmd- This script runs code to explore the level of overlap between historic and current ranges using a convex hull.
+**07 Areas of overlap between historic and current ranges.Rmd-** This script runs code to explore the level of overlap between historic and current ranges using a convex hull.
 
-08 Logistic general linear model.Rmd-This script performs a general linear model with binomial errors to measure the effects of human population size, density and land cover type on overlap between historic (museum specimen data) and present-day (IUCN data) C.niloticus distributions
+**08 Logistic general linear model.Rmd-**This script performs a general linear model with binomial errors to measure the effects of human population size, density and land cover type on overlap between historic (museum specimen data) and present-day (IUCN data) C.niloticus distributions
