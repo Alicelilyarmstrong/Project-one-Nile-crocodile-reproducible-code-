@@ -17,4 +17,3 @@ Hurtt, G. C., et al. (2019). Harmonization of Global Land Use Change and Managem
 Human population size and density data-
 Klein Goldewijk, K., A. Beusen, J.Doelman and E. Stehfest (2017), Anthropogenic land use estimates for the Holocene; HYDE 3.2, Earth System Science Data, 9, 927-953.
 
-
