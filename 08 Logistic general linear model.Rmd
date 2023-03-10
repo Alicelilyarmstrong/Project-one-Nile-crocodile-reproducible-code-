@@ -5,7 +5,7 @@ date: "2023-03-10"
 output: html_document
 ---
 
-This script performs a general linear model with binomial errors to measure the effects of human population size, density and land cover type on overlap between historic (museum specimen data) and present-day (IUCN data) C.niloticus distributions.
+This script performs a general linear model with quasi-binomial errors to measure the effects of human population size, density and land cover type on overlap between historic (museum specimen data) and present-day (IUCN data) C.niloticus distributions.
 
 #Load packages#
 ```{r}
