@@ -28,7 +28,7 @@ Klein Goldewijk, K., A. Beusen, J.Doelman and E. Stehfest (2017), Anthropogenic 
 
 All the code used for analysis is given in the repository. Below is a brief description of each script.
 
-*01 Wrangling specimen occurrence data.Rmd-* This script takes georeferenced data for Nile crcodiles and wrangles these for later analysis.
+**01 Wrangling specimen occurrence data.Rmd-** This script takes georeferenced data for Nile crcodiles and wrangles these for later analysis.
 
 02 Plotting specimen occurrence data.Rmd- This script allows you to visualize georeferenced Nile crocodile specimens from GBIF and the NHM (London).
 
