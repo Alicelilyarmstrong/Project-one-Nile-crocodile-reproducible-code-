@@ -36,7 +36,7 @@ All the code used for plots and analysis is given in the repository. Below is a 
 
 **03 Modelling historical Nile crocodile occurrence with Maxent.Rmd**- This script runs a Maxent species distribution model on the historical Nile crocodile specimen data from GBIF and the NHM.
 
-**04 Functions anthropocene data.R-** functions to make scripts 05 and 06 work.
+**04 Functions anthropocene data.R-** custom functions needed to run scripts 05 and 06.
 
 **05 Land use extractions.Rmd-** This script takes extracts various types of land use data from the error polygons of the specimens.
 
