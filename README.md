@@ -12,6 +12,7 @@ All wrangled data for analysis has been provided in this repository as csv. file
 provided in this repository as 'croc_neat.csv' 
 
 **GBIF specimen data-**
+provided in this repository as 'GBIF_final.csv' but you must site as follows:
 Global Biodiversity Information Facility. (2023). Occurrence Download. https://doi.org/10.15468/dl.2fn763 [Accessed 8th January 2023].
 
 **IUCN range polygons-**
