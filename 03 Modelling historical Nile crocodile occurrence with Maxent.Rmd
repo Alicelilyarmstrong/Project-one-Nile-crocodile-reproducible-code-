@@ -68,8 +68,7 @@ modelEnv=dropLayer(modelEnv,
 #load and edit locality data#
 ```{r}
 data<-read.csv('full_specimin_localility')
-data<-data%>%dplyr::select('Long','Lat','Extent','Cer')
-raw.data<-data%>%dplyr::select('Long','Lat')
+raw.data<-data%>%dplyr::select('Long','Lat','Date')
 ```
 
 #correct for potential spatial auto correlation#
@@ -100,6 +99,7 @@ bounds$id<-random_id(216931, 4)
 ```
 
 #set for loop that takes one occurrence per grid cell#
+#this can take quite some time#
 ```{r}
 for (i in 1:216931){
   grid <- bounds[i,] 
@@ -131,8 +131,9 @@ model.extent<-extent(min(data$Long)-10,max(data$Long)+10,
 #crop data to local range#
 ```{r}
 modelEnv<-crop(modelEnv,model.extent)
-
+modelEnv<-raster::stack(modelEnv)
 ```
+
 
 #withold 20% of sample for testing#
 ```{r}
