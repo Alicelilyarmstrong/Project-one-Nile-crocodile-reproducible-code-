@@ -38,10 +38,10 @@ All the code used for plots and analysis is given in the repository. Below is a 
 
 **04 Functions anthropocene data.R-** custom functions needed to run scripts 05 and 06.
 
-**05 Land use extractions.Rmd-** This script takes extracts various types of land use data from the error polygons of the specimens.
+**05 Land use extractions.Rmd-** This script extracts land cover data  from specimen error polygons.
 
-**06 Population extractions.Rmd-** This script takes extracts various types of HPD data from the error polygons of the specimens.
+**06 Population extractions.Rmd-** This script extracts human population data from specimen error polygons.
 
-**07 Areas of overlap between historic and current ranges.Rmd-** This script runs code to explore the level of overlap between historic and current ranges using a convex hull.
+**07 Areas of overlap between historic and current ranges.Rmd-** This script runs code to explore the level of overlap between historic and current *C.niloticus*  ranges using a convex hull.
 
 **08 Logistic general linear model.Rmd-** This script performs a general linear model with binomial errors to measure the effects of human population size, density and land cover type on overlap between historic (museum specimen data) and present-day (IUCN data) *C.niloticus* distributions.
