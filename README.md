@@ -44,4 +44,4 @@ All the code used for plots and analysis is given in the repository. Below is a 
 
 **07 Areas of overlap between historic and current ranges.Rmd-** This script runs code to explore the level of overlap between historic and current ranges using a convex hull.
 
-**08 Logistic general linear model.Rmd-** This script performs a general linear model with binomial errors to measure the effects of human population size, density and land cover type on overlap between historic (museum specimen data) and present-day (IUCN data) *C.niloticus distributions*.
+**08 Logistic general linear model.Rmd-** This script performs a general linear model with binomial errors to measure the effects of human population size, density and land cover type on overlap between historic (museum specimen data) and present-day (IUCN data) *C.niloticus* distributions.
