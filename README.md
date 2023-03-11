@@ -27,7 +27,7 @@ Klein Goldewijk, K., A. Beusen, J.Doelman and E. Stehfest (2017), Anthropogenic 
 
 # Analyses #
 
-All the code used for plots and analysis is given in the repository. Below is a brief description of each script.
+All the code used for plots and analysis is given in this repository. Below is a brief description of each script.
 
 
 **01 Wrangling specimen occurrence data.Rmd-** This script takes georeferenced data for Nile crcodiles and wrangles these for later analysis.
@@ -44,4 +44,4 @@ All the code used for plots and analysis is given in the repository. Below is a 
 
 **07 Areas of overlap between historic and current ranges.Rmd-** This script runs code to explore the level of overlap between historic and current *C.niloticus*  ranges using a convex hull.
 
-**08 Logistic general linear model.Rmd-** This script performs a general linear model with binomial errors to measure the effects of human population size, density and land cover type on overlap between historic (museum specimen data) and present-day (IUCN data) *C.niloticus* distributions.
+**08 Logistic general linear model.Rmd-** This script performs a general linear model with quasi binomial errors to measure the effects of human population size, density and land cover type on overlap between historic (museum specimen data) and present-day (IUCN data) *C.niloticus* distributions.
