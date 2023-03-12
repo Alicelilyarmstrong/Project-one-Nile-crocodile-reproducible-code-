@@ -126,3 +126,8 @@ overlaps
 ```{r}
 write.csv(overlaps,"overlaps")
 ```
+
+#calculate percentage overlap#
+```{r}
+overlap_percent<-overlaps %>% dplyr::summarise(percent = sum(overlap)/n() *100)
+```
