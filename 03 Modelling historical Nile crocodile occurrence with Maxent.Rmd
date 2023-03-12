@@ -98,6 +98,7 @@ bounds <- data.frame(xl = (xy$Long - 0.083333333),
 bounds$id<-random_id(216931, 4)
 ```
 
+
 #set for loop that takes one occurrence per grid cell#
 #this can take quite some time#
 ```{r}
@@ -122,9 +123,10 @@ data<-data%>%dplyr::select('Long.1', 'Lat.1')
 ```
 
 
+
 #make model extent#
 ```{r}
-model.extent<-extent(min(data$Long)-10,max(data$Long)+10,
+model.extent<-extent(min(data$Long)-10,max(data$Long)+10,   
                      min(data$Lat)-10,max(data$Lat)+10)
 ```
 
