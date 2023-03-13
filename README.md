@@ -1,8 +1,6 @@
 # 🐊Project One-Nile crocodile reproducible code🐊 #
 This is all the code for my paper, **‘Exploring the impacts of anthropogenic change on Nile crocodile (*Crocodylus niloticus*) distributions over the last 150 years’**. This project was completed as part of my masters course (Ecology, Evolution and Conservation Research) at Imperial College London.
 
-Some code has been adapted from Cooper et al (2020):
-Natalie Cooper, Jake Curry and Emily Buckingham. 2020. GitHub: nhcooper123/protecting-pangolins: Code for the paper. Zenodo. DOI: 10.5281/zenodo.4266580. 
 
 
 # Raw data #
@@ -30,6 +28,10 @@ Klein Goldewijk, K., A. Beusen, J.Doelman and E. Stehfest (2017), Anthropogenic 
 
 
 # Analyses #
+
+Some code has been adapted from Cooper et al (2020):
+Natalie Cooper, Jake Curry and Emily Buckingham. 2020. GitHub: nhcooper123/protecting-pangolins: Code for the paper. Zenodo. DOI: 10.5281/zenodo.4266580. 
+
 
 All the code used for plots and analysis is given in this repository. Below is a brief description of each script.
 
