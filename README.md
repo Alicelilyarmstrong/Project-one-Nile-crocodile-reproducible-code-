@@ -34,7 +34,7 @@ Klein Goldewijk, K., A. Beusen, J.Doelman and E. Stehfest (2017), Anthropogenic 
 All the code used for plots and analysis is given in this repository. Below is a brief description of each script.
 
 
-**01 Wrangling specimen occurrence data.Rmd-** This script takes georeferenced data for Nile crcodiles and wrangles these for later analysis.
+**01 Wrangling specimen occurrence data.Rmd-** This script takes georeferenced  Nile crcodile data and wrangles it.
 
 **02 Plotting specimen occurrence data.Rmd-** This script allows you to visualize georeferenced Nile crocodile specimens from GBIF and the NHM (London).
 
@@ -42,9 +42,9 @@ All the code used for plots and analysis is given in this repository. Below is a
 
 **04 Functions anthropocene data.R-** custom functions needed to run scripts 05 and 06.
 
-**05 Land use extractions.Rmd-** This script extracts land cover data  from specimen error polygons.
+**05 Land use extractions.Rmd-** This script gets land cover data  from specimen error polygons.
 
-**06 Population extractions.Rmd-** This script extracts human population data from specimen error polygons.
+**06 Population extractions.Rmd-** This script gets human population data from specimen error polygons.
 
 **07 Areas of overlap between historic and current ranges.Rmd-** This script runs code to explore the level of overlap between historic and current *C.niloticus*  ranges using a convex hull.
 
