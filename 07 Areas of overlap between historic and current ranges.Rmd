@@ -83,15 +83,17 @@ overlap <- st_intersection(nhm, newIUCN)
 
 #plot#
 ```{r}
-ggplot(baseMap) +
+convex<-ggplot(baseMap) +
   geom_sf() +
-  geom_sf(fill = "#7fcdbb", colour = "#7fcdbb",
+  geom_sf(fill = "royalblue2", colour = "royalblue2",
           data = nhm, show.legend = FALSE) +
   geom_sf(alpha = 0.5, fill = "#2c7fb8", colour = "#2c7fb8",
           data = newIUCN, show.legend = FALSE) +
   geom_sf(fill = "red", colour = "red",
           data = overlap, show.legend = FALSE) +
-  coord_sf(xlim = xlim_af, ylim = ylim_af, expand = TRUE)
+  coord_sf(xlim = xlim_af, ylim = ylim_af, expand = TRUE) +
+  theme_minimal() 
+  
 ```
 
 #Extract just the ID column from nhm data#
