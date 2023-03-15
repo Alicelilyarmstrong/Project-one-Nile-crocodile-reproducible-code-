@@ -61,10 +61,13 @@ r<-rsq(primf4)
 #primary forest 1850#
 ```{r}
 plot_primf_1850<-ggplot(merged, aes(x=primf_1850, y=overlap)) + geom_point() +
+  theme_minimal() +
   labs(y= "overlap", x = "primary forest ")+
   scale_y_continuous(breaks = c(0, 1), labels = c("No", "Yes"))+
   stat_smooth(method="glm", color="blue", se=FALSE,
-              method.args = list(family=binomial))
+              method.args = list(family=binomial)) +
+  theme_minimal() 
+  
 ```
 
 #primary forest 1900#
@@ -73,7 +76,8 @@ plot_primf_1900<-ggplot(merged, aes(x=primf_1900, y=overlap)) + geom_point() +
   labs(y= "overlap", x = "primary forest")+
   scale_y_continuous(breaks = c(0, 1), labels = c("No", "Yes"))+
   stat_smooth(method="glm", color="blue", se=FALSE,
-             method.args = list(family=binomial))
+             method.args = list(family=binomial)) +
+  theme_minimal() 
 ```
 
 #primary forest 1950#
@@ -82,7 +86,8 @@ plot_primf_1950<-ggplot(merged, aes(x=primf_1900, y=overlap)) + geom_point() +
   labs(y= "overlap", x = " primary forest")+
   scale_y_continuous(breaks = c(0, 1), labels = c("No", "Yes"))+
   stat_smooth(method="glm", color="blue", se=FALSE,
-              method.args = list(family=binomial))
+              method.args = list(family=binomial)) +
+  theme_minimal() 
 ```
 
 #primary-non forest GLMs#
@@ -121,7 +126,8 @@ plot_primn_1850<-ggplot(merged, aes(x=primn_1850, y=overlap)) + geom_point() +
   labs(y= "overlap", x = "primary non-forest")+
   scale_y_continuous(breaks = c(0, 1), labels = c("No", "Yes"))+
   stat_smooth(method="glm", color="blue", se=FALSE,
-              method.args = list(family=binomial))
+              method.args = list(family=binomial)) +
+  theme_minimal() 
 ```
 
 #primary non forest 1900#
@@ -130,7 +136,8 @@ plot_primn_1900<-ggplot(merged, aes(x=primn_1900, y=overlap)) + geom_point() +
   labs(y="overlap", x = "primary non-forest")+
   scale_y_continuous(breaks = c(0, 1), labels = c("No", "Yes"))+
   stat_smooth(method="glm", color="blue", se=FALSE,
-              method.args = list(family=binomial))
+              method.args = list(family=binomial)) +
+  theme_minimal() 
 ```
 
 #primary non forest 1950#
@@ -139,7 +146,8 @@ plot_primn_1950<-ggplot(merged, aes(x=primn_1950, y=overlap)) + geom_point() +
   labs(y= "overlap", x = " primary non-forest")+
   scale_y_continuous(breaks = c(0, 1), labels = c("No", "Yes"))+
   stat_smooth(method="glm", color="blue", se=FALSE,
-              method.args = list(family=binomial))
+              method.args = list(family=binomial)) +
+  theme_minimal() 
 ```
 
 #primary non forest 2000#
@@ -147,7 +155,8 @@ plot_primn_1950<-ggplot(merged, aes(x=primn_1950, y=overlap)) + geom_point() +
 plot_primn_2000<-ggplot(merged, aes(x=primn_2000, y=overlap)) + geom_point() +
   labs(y= "% overlap", x = "primary non-forest")+
   stat_smooth(method="glm", color="blue", se=FALSE,
-              method.args = list(family=binomial))
+              method.args = list(family=binomial)) +
+  theme_minimal() 
 ```
 
 #urban land cover GLMs#
@@ -184,7 +193,8 @@ plot_urban_1850<-ggplot(merged, aes(x=urban_1850, y=overlap)) + geom_point() +
   labs(y= "overlap", x = "urban")+
   scale_y_continuous(breaks = c(0, 1), labels = c("No", "Yes"))+
   stat_smooth(method="glm", color="blue", se=FALSE,
-              method.args = list(family=binomial))
+              method.args = list(family=binomial)) +
+  theme_minimal() 
 ```
 
 #urban 1900# 
@@ -193,7 +203,8 @@ plot_urban_1900<-ggplot(merged, aes(x=urban_1900, y=overlap)) + geom_point() +
   labs(y= "overlap", x = "urban")+
   scale_y_continuous(breaks = c(0, 1), labels = c("No", "Yes"))+
   stat_smooth(method="glm", color="blue", se=FALSE,
-              method.args = list(family=binomial))
+              method.args = list(family=binomial)) +
+  theme_minimal() 
 ```
 
 #urban 1950#
@@ -202,7 +213,8 @@ plot_urban_1950<-ggplot(merged, aes(x=urban_1950, y=overlap)) + geom_point() +
   labs(y= "overlap", x = "urban")+
   scale_y_continuous(breaks = c(0, 1), labels = c("No", "Yes"))+
   stat_smooth(method="glm", color="blue", se=FALSE,
-              method.args = list(family=binomial))
+              method.args = list(family=binomial)) +
+  theme_minimal() 
 ```
 
 
