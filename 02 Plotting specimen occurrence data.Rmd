@@ -3,6 +3,7 @@ title: "Plotting specimen occurrence data"
 author: "Alice Armstrong"
 date: "2023-03-06"
 output: html_document
+keep_md: yes
 
 This script allows you to visualize georeferenced Nile crocodile specimens from GBIF and the NHM (London)
 
@@ -138,9 +139,9 @@ ylim_af <- c(africa_bbox[2], africa_bbox[4])
 #Plot NHM and GBIF data from 1850-1900#
 ```{r}
 map1<-ggplot(baseMap) +
-  geom_sf(fill = "white", lwd = 0.4) +
+  geom_sf(fill = "aliceblue", lwd = 0.4) +
   # Add species
-  geom_sf(data = fiftyyrs11, colour = "blue", size = 2, alpha=0.5) +
+  geom_sf(data = fiftyyrs11, colour = "blue", size = 3, alpha=0.5) +
   # Add equator line
   geom_hline(aes(yintercept = 0), colour = "black") +
   geom_sf(data = yrs11, colour = "red", size = 2, alpha=0.5) +
@@ -154,9 +155,9 @@ map1<-ggplot(baseMap) +
 # Plot NHM and GBIF data from 1901-1951#
 ```{r}
 map2<-ggplot(baseMap) +
-  geom_sf(fill = "white", lwd = 0.4) +
+  geom_sf(fill = "aliceblue", lwd = 0.4) +
   # Add species
-  geom_sf(data = fiftyyrs22, colour = "blue", size = 2, alpha=0.5) +
+  geom_sf(data = fiftyyrs22, colour = "blue", size = 3, alpha=0.5) +
   # Add equator line
   geom_hline(aes(yintercept = 0), colour = "black") +
   geom_sf(data = yrs22, colour = "red", size = 2, alpha=0.5) +
@@ -169,9 +170,9 @@ map2<-ggplot(baseMap) +
 #Plot NHM and GBIF data from (1952:2002#
 ```{r}
 map3<-ggplot(baseMap) +
-  geom_sf(fill = "white", lwd = 0.4) +
+  geom_sf(fill = "aliceblue", lwd = 0.4) +
   # Add species
-  geom_sf(data = fiftyyrs33, colour = "blue", size = 2, alpha=0.5) +
+  geom_sf(data = fiftyyrs33, colour = "blue", size = 3, alpha=0.5) +
   # Add equator line
   geom_hline(aes(yintercept = 0), colour = "black") +
   geom_sf(data = yrs33, colour = "red", size = 2, alpha=0.5) +
@@ -189,6 +190,8 @@ specimindata<-map1 + map2 + map3
 ```
 
 #label maps for figure (i,ii)#
-```{r}
-specimindata + plot_annotation (tag_levels= 'i')
+```{r dev = "jpg"}
+specimindata<-specimindata + plot_annotation (tag_levels= 'i')
 ```
+
+
