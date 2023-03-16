@@ -54,4 +54,4 @@ All the code used for plots and analysis is given in this repository. Below is a
 
 # Figures #
 
-Figure outputs used in my thesis with this code are provided here as PDF files in the **'figures'** folder
+Some figure outputs used in my thesis with this code are provided here as PDF files in the **'figures'** folder
