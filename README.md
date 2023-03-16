@@ -5,7 +5,7 @@ This is all the code for my paper, **‘Exploring the impacts of anthropogenic c
 
 # Raw data #
 
-All wrangled data for analysis has been provided in this repository as csv. files.
+All wrangled data for analysis has been provided in this repository as csv. files.in the /data folder
 
 
 **References for original sources of data:**
