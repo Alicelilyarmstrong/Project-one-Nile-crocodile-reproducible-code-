@@ -38,9 +38,6 @@ All the code used for plots and analysis is given in this repository. Below is a
 
 **01 Wrangling specimen occurrence data.Rmd-** This script takes georeferenced  Nile crcodile data and wrangles it.
 
-# Figures #
-Some of the plots a figures from my thesis are given here in the **figures** folder
-
 **02 Plotting specimen occurrence data.Rmd-** This script allows you to visualize georeferenced Nile crocodile specimens from GBIF and the NHM (London).
 
 **03 Modelling historical Nile crocodile occurrence with Maxent.Rmd**- This script runs a Maxent species distribution model on the historical Nile crocodile specimen data from GBIF and the NHM.
@@ -56,3 +53,5 @@ Some of the plots a figures from my thesis are given here in the **figures** fol
 **08 Logistic general linear model.Rmd-** This script performs a general linear model with quasi binomial errors to measure the effects of human population size, density and land cover type on overlap between historic (museum specimen data) and present-day (IUCN data) *C.niloticus* distributions.
 
 
+# Figures #
+Some of the plots a figures from my thesis are given here in the **figures** folder
