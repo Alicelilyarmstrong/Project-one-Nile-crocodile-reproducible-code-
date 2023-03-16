@@ -224,7 +224,7 @@ primn_plots<-plot_primn_1850+plot_primn_1900+plot_primn_1950+
   plot_primf_1850+plot_primf_1900+plot_primf_1950+
   plot_urban_1850+plot_urban_1900+plot_urban_1950
 
-primn_plots + plot_annotation (tag_levels= 'i')
+anthro_plots<-primn_plots + plot_annotation (tag_levels= 'i')
 ```
 
 
