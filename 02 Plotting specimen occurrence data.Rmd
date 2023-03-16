@@ -144,7 +144,7 @@ map1<-ggplot(baseMap) +
   geom_sf(data = fiftyyrs11, colour = "blue", size = 3, alpha=0.5) +
   # Add equator line
   geom_hline(aes(yintercept = 0), colour = "black") +
-  geom_sf(data = yrs11, colour = "red", size = 2, alpha=0.5) +
+  geom_sf(data = yrs11, colour = "red", size = 5, alpha=0.5) +
   coord_sf(xlim = xlim_af, ylim = ylim_af, expand = TRUE) +
   theme_minimal() +
   remove_x + # gets rid of x axis as we don't need it
@@ -160,7 +160,7 @@ map2<-ggplot(baseMap) +
   geom_sf(data = fiftyyrs22, colour = "blue", size = 3, alpha=0.5) +
   # Add equator line
   geom_hline(aes(yintercept = 0), colour = "black") +
-  geom_sf(data = yrs22, colour = "red", size = 2, alpha=0.5) +
+  geom_sf(data = yrs22, colour = "red", size = 5, alpha=0.5) +
   coord_sf(xlim = xlim_af, ylim = ylim_af, expand = TRUE) +
   theme_minimal() +
   remove_x + # gets rid of x axis as we don't need it
@@ -175,7 +175,7 @@ map3<-ggplot(baseMap) +
   geom_sf(data = fiftyyrs33, colour = "blue", size = 3, alpha=0.5) +
   # Add equator line
   geom_hline(aes(yintercept = 0), colour = "black") +
-  geom_sf(data = yrs33, colour = "red", size = 2, alpha=0.5) +
+  geom_sf(data = yrs33, colour = "red", size = 5, alpha=0.5) +
   coord_sf(xlim = xlim_af, ylim = ylim_af, expand = TRUE) +
   theme_minimal() +
   remove_x + # gets rid of x axis as we don't need it
@@ -190,7 +190,7 @@ specimindata<-map1 + map2 + map3
 ```
 
 #label maps for figure (i,ii)#
-```{r dev = "jpg"}
+```{r}
 specimindata<-specimindata + plot_annotation (tag_levels= 'i')
 ```
 
