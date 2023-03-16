@@ -38,6 +38,9 @@ All the code used for plots and analysis is given in this repository. Below is a
 
 **01 Wrangling specimen occurrence data.Rmd-** This script takes georeferenced  Nile crcodile data and wrangles it.
 
+# Figures #
+Some of the plots a figures from my thesis are given here in the **figures** folder
+
 **02 Plotting specimen occurrence data.Rmd-** This script allows you to visualize georeferenced Nile crocodile specimens from GBIF and the NHM (London).
 
 **03 Modelling historical Nile crocodile occurrence with Maxent.Rmd**- This script runs a Maxent species distribution model on the historical Nile crocodile specimen data from GBIF and the NHM.
