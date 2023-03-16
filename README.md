@@ -5,13 +5,13 @@ This is all the code for my paper, **‘Exploring the impacts of anthropogenic c
 
 # Raw data #
 
-All wrangled data for analysis has been provided in this repository as csv. files.
+All wrangled data for analysis has been provided in this repository as csv. files.in the **'data'** folder
 
 
 **References for original sources of data:**
 
 **NHM specimen data-**
-provided in this repository as 'croc_neat.csv' 
+provided in data folder as 'croc_neat.csv' 
 
 **GBIF specimen data-**
 provided in this repository as 'GBIF_final.csv' but you must site:
@@ -51,3 +51,7 @@ All the code used for plots and analysis is given in this repository. Below is a
 **07 Areas of overlap between historic and current ranges.Rmd-** This script runs code to explore the level of overlap between historic and current *C.niloticus*  ranges using a convex hull.
 
 **08 Logistic general linear model.Rmd-** This script performs a general linear model with quasi binomial errors to measure the effects of human population size, density and land cover type on overlap between historic (museum specimen data) and present-day (IUCN data) *C.niloticus* distributions.
+
+# Figures #
+
+Some figure outputs used in my thesis with this code are provided here as PDF files in the **'figures'** folder
