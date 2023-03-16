@@ -5,13 +5,13 @@ This is all the code for my paper, **‘Exploring the impacts of anthropogenic c
 
 # Raw data #
 
-All wrangled data for analysis has been provided in this repository as csv. files.in the **data** folder
+All wrangled data for analysis has been provided in this repository as csv. files.in the **'data'** folder
 
 
 **References for original sources of data:**
 
 **NHM specimen data-**
-provided in this repository as 'croc_neat.csv' 
+provided in data folder as 'croc_neat.csv' 
 
 **GBIF specimen data-**
 provided in this repository as 'GBIF_final.csv' but you must site:
