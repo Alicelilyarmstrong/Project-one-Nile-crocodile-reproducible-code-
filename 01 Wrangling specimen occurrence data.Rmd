@@ -47,7 +47,9 @@ NHM3<-subset(NHM2, Keep == "Y")
 #Rename NHM and GBIF data, and limt NHM column names to match GBIF#
 ```{r}
 fullNHM<-NHM3%>%select ('Date','Long', 'Lat','Extent', 'Cer')
+nrow(fullNHM)
 fullGBIF<-GBIF2
+nrow(fullGBIF)
 ```
 
 #Merge datasets#
