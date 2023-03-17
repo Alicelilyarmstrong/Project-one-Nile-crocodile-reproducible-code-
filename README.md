@@ -5,8 +5,8 @@ This is all the code for my paper, **‘Exploring the impacts of anthropogenic c
 
 # Raw data #
 
-All wrangled data for analysis has been provided in this repository as csv. files.in the **'data'** folder
-
+All wrangled data for analysis has been provided on Google Drive:
+https://drive.google.com/drive/folders/1r2oSxKng5Z2_pjWVZeB1fGiJWI5cOkDu?usp=sharing 
 
 **References for original sources of data:**
 
