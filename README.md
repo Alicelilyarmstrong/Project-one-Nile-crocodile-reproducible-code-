@@ -53,5 +53,3 @@ All the code used for plots and analysis is given in this repository. Below is a
 **08 Logistic general linear model.Rmd-** This script performs a general linear model with quasi binomial errors to measure the effects of human population size, density and land cover type on overlap between historic (museum specimen data) and present-day (IUCN data) *C.niloticus* distributions.
 
 
-# Figures #
-Some of the plots a figures from my thesis are given here in the **figures** folder
